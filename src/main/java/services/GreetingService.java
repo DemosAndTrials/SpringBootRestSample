@@ -12,12 +12,16 @@ public class GreetingService {
     @Autowired
     GreetingRepository repository;
 
-    public void save(Greeting item) {
+    public void create(Greeting item) {
         repository.save(item);
     }
 
-    public void save(List<Greeting> model) {
+    public void create(List<Greeting> model) {
         repository.save(model);
+    }
+
+    public void update(Greeting item) {
+        repository.save(item);
     }
 
     public Iterable<Greeting> findAll() {
@@ -29,7 +33,7 @@ public class GreetingService {
     }
 
     public Iterable<Greeting> findByContentLike(String exp){
-        return repository.findByContentContaining(exp);
+        return repository.findByContentContainingIgnoreCase(exp);
     }
 
     public Iterable<Greeting> findByIdGreater(long id){

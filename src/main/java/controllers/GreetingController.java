@@ -4,11 +4,11 @@ import models.Greeting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.GreetingService;
-
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
+@RequestMapping("api")
 public class GreetingController {
 
     private static final String template = "Hello, %s!";
@@ -17,7 +17,7 @@ public class GreetingController {
     @Autowired
     GreetingService greetingService;
 
-    @RequestMapping("/greeting")
+    @RequestMapping("/test")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, name));
@@ -29,20 +29,18 @@ public class GreetingController {
         return result;
     }
 
-    @RequestMapping(value = "/addgreeting", method = RequestMethod.POST, headers = "Accept=application/json")
-    public Greeting addGreeting(@RequestBody Greeting model) {
+    @RequestMapping(value = "/addItem", method = RequestMethod.POST, headers = "Accept=application/json")
+    public Greeting addItem(@RequestBody Greeting item) {
         // add new item here
-        greetingService.save(model);
-        System.out.print("\"Hello\"");
-        return model;
+        greetingService.create(item);
+        return item;
     }
 
-    @RequestMapping(value = "/addgreetings", method = RequestMethod.POST, headers = "Accept=application/json")
-    public Iterable<Greeting> addGreeting(@RequestBody List<Greeting> model) {
+    @RequestMapping(value = "/addItems", method = RequestMethod.POST, headers = "Accept=application/json")
+    public Iterable<Greeting> addItems(@RequestBody List<Greeting> items) {
         // add new item here
-        greetingService.save(model);
-        System.out.print("\"Hello\"");
-        return model;
+        greetingService.create(items);
+        return items;
     }
 
     @RequestMapping("/findall")
@@ -61,5 +59,10 @@ public class GreetingController {
     public Iterable<Greeting> findAllLike(@RequestParam("id") long id){
         Iterable<Greeting> result = greetingService.findByIdGreater(id);
         return result;
+    }
+
+    @RequestMapping(value = "/updateItem", method = RequestMethod.PUT, headers = "Accept=application/json")
+    public void updateItem(@RequestBody Greeting item){
+        greetingService.update(item);
     }
 }
