@@ -75,10 +75,10 @@
 	"content": "Hello, Dan!"
 }]                         </pre>
                     </dd>
-                    <dt>addgreeting:</dt>
+                    <dt>addItem:</dt>
                     <dd>
                         Example usage:
-                        <pre>POST http://www.example.com/addgreeting
+                        <pre>POST http://www.example.com/addItem
 Body:
 {
  "content": "Hello, John!"
@@ -89,6 +89,26 @@ Body:
 	"id": 5,
 	"content": "Hello, John!"
 }                        </pre>
+                    </dd>
+                    <dt>addItems:</dt>
+                    <dd>
+                        Example usage:
+                        <pre>POST http://www.example.com/addItems
+Body:
+[{
+	"content": "Hello, Kevin!"
+ }, {
+	"content": "Hello, David!"
+}]                            </pre>
+                        Example JSON response body:
+                        <pre>
+[{
+	"id": 7,
+	"content": "Hello, Kevin!"
+ }, {
+	"id": 8,
+	"content": "Hello, Dan!"
+}]                            </pre>
                     </dd>
                 </dl>
             </div>
